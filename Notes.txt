@@ -1,0 +1,14 @@
+Currency fluctuation is influenced by economic, political and global dynamics.
+
+
+Open Exchange Rates
+
+Diaspora remittances
+
+
+
+ARIMA (Autoregressive Integrated Moving Average):
+Suitable for univariate time series data. It models the differences between consecutive observations to make the series stationary and then applies autoregression and moving average to forecast future values.
+
+GDP
+Election
