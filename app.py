@@ -15,24 +15,25 @@ def extract_date_features(date_entry):
 
         if isinstance(date_entry, str):
             date_entry = pd.to_datetime(date_entry)
+    
+        # Calculate the week of the month
+        first_day_of_month = date_entry.replace(day=1)
+        week_of_month = math.ceil((date_entry.day + first_day_of_month.weekday()) / 7)
+
+        # Extract features
+        features = {
+            "year": date_entry.year,
+            "Month": date_entry.month,
+            "Quarter": (date_entry.month - 1) // 3 + 1,
+            "Week-of-year": date_entry.isocalendar()[1],
+            "Day-of-year": date_entry.timetuple().tm_yday,
+            "Week-of-month": week_of_month,
+            "Day-of-week": date_entry.weekday(),  # 0=Monday, 6=Sunday
+        }
+
+        return features
     except:
         st.write("Please input a valid data")
-    # Calculate the week of the month
-    first_day_of_month = date_entry.replace(day=1)
-    week_of_month = math.ceil((date_entry.day + first_day_of_month.weekday()) / 7)
-
-    # Extract features
-    features = {
-        "year": date_entry.year,
-        "Month": date_entry.month,
-        "Quarter": (date_entry.month - 1) // 3 + 1,
-        "Week-of-year": date_entry.isocalendar()[1],
-        "Day-of-year": date_entry.timetuple().tm_yday,
-        "Week-of-month": week_of_month,
-        "Day-of-week": date_entry.weekday(),  # 0=Monday, 6=Sunday
-    }
-
-    return features
 
 
 
