@@ -3,6 +3,7 @@ import pandas as pd
 import math
 import joblib
 from datetime import datetime
+from sklearn.preprocessing import LabelEncoder
 
 st.title("CURRENCY PREDICTIONS")
 
@@ -42,22 +43,29 @@ def extract_date_features(date_entry):
 
 
 # Inputs
-options = ['0', '1']
+options = ['Yes', 'No']
 
 date = st.date_input("Select a date:", None)
 df = pd.DataFrame([extract_date_features(date)])
 
 # Add more columns through input features
-df['election-year'] = int(st.selectbox("Is is an election in Kenya", options))
-df['US_election'] = int(st.selectbox("Is it US election year?", options))
-df['Interest-rate'] = float(st.number_input("Interest date"))
+df['election-year'] = st.selectbox("Kenya election year?", options)
+df['US_election'] = st.selectbox("United State of America election year?", options)
+df['Interest-rate'] = float(st.number_input(" US Interest rate"))
 
 try:
 
     # Rearrange the features
     df = df[["Interest-rate","Month","Quarter","Week-of-year","Week-of-month","Day-of-week","Day-of-year","election-year","US_election"]]
 
-    #st.dataframe(df)
+
+    
+    label_encoder = LabelEncoder()
+    df['election-year'] = df['election-year'].replace('Yes', 1)
+    df['election-year'] = df['election-year'].replace('No', 0)
+    df['US_election'] = df['US_election'].replace('Yes', 1)
+    df['US_election'] = df['US_election'].replace('No', 0)
+    st.dataframe(df)
 
     # Model
     model = joblib.load("rf_model1.pkl")
