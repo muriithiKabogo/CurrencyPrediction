@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import math
 import joblib
-
+from datetime import datetime
 
 st.title("CURRENCY PREDICTIONS")
 
