@@ -6,6 +6,9 @@ from datetime import datetime
 
 st.title("CURRENCY PREDICTIONS")
 
+date_entry = None
+date_entry = date_entry or datetime.now()
+
 # Extraction of data from date input
 def extract_date_features(date_entry):
     if isinstance(date_entry, str):
