@@ -66,4 +66,4 @@ try:
 
     st.write("Currency Prediction is:" , pred)
 except:
-    st.error("Kindly make sure your inputs are inline")    
+    st.error("To view the Currency Price, please input data!!")    
