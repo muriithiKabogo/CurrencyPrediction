@@ -52,15 +52,18 @@ df['election-year'] = int(st.selectbox("Is is an election in Kenya", options))
 df['US_election'] = int(st.selectbox("Is it US election year?", options))
 df['Interest-rate'] = float(st.number_input("Interest date"))
 
+try:
 
-# Rearrange the features
-df = df[["Interest-rate","Month","Quarter","Week-of-year","Week-of-month","Day-of-week","Day-of-year","election-year","US_election"]]
+    # Rearrange the features
+    df = df[["Interest-rate","Month","Quarter","Week-of-year","Week-of-month","Day-of-week","Day-of-year","election-year","US_election"]]
 
-#st.dataframe(df)
+    #st.dataframe(df)
 
-# Model
-model = joblib.load("rf_model1.pkl")
+    # Model
+    model = joblib.load("rf_model1.pkl")
 
-pred = model.predict(df)
+    pred = model.predict(df)
 
-st.write("Currency Prediction is:" , pred)
+    st.write("Currency Prediction is:" , pred)
+except:
+    st.error("Kindly make sure your inputs are inline")    
