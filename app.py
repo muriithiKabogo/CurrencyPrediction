@@ -11,10 +11,12 @@ date_entry = date_entry or datetime.now()
 
 # Extraction of data from date input
 def extract_date_features(date_entry):
-    if isinstance(date_entry, str):
-        date_entry = pd.to_datetime(date_entry)
-    else:
-        st.write("Please input date")
+    try:
+
+        if isinstance(date_entry, str):
+            date_entry = pd.to_datetime(date_entry)
+    except:
+        st.write("Please input a valid data")
     # Calculate the week of the month
     first_day_of_month = date_entry.replace(day=1)
     week_of_month = math.ceil((date_entry.day + first_day_of_month.weekday()) / 7)
