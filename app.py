@@ -53,6 +53,9 @@ df = pd.DataFrame([extract_date_features(date)])
 # Add more columns through input features
 df['election-year'] = st.selectbox("Kenya election year?", options)
 df['US_election'] = st.selectbox("United State of America election year?", options)
+
+st.markdown("[Check Interest Rate](https://fred.stlouisfed.org/series/DGS1)")
+
 df['Interest-rate'] = float(st.number_input(" US Interest rate"))
 if st.button("Predict"):
     if (df['Interest-rate'] == 0).any():
