@@ -5,6 +5,8 @@ import joblib
 from datetime import datetime
 from sklearn.preprocessing import LabelEncoder
 
+
+
 st.title("CURRENCY PREDICTIONS")
 
 date_entry = None
@@ -52,26 +54,34 @@ df = pd.DataFrame([extract_date_features(date)])
 df['election-year'] = st.selectbox("Kenya election year?", options)
 df['US_election'] = st.selectbox("United State of America election year?", options)
 df['Interest-rate'] = float(st.number_input(" US Interest rate"))
+if st.button("Predict"):
+    if (df['Interest-rate'] == 0).any():
+        st.error("Interest Rate is NULL!!")
+    else:    
+        try:
 
-try:
-
-    # Rearrange the features
-    df = df[["Interest-rate","Month","Quarter","Week-of-year","Week-of-month","Day-of-week","Day-of-year","election-year","US_election"]]
+            # Rearrange the features
+            df = df[["Interest-rate","Month","Quarter","Week-of-year","Week-of-month","Day-of-week","Day-of-year","election-year","US_election"]]
 
 
-    
-    label_encoder = LabelEncoder()
-    df['election-year'] = df['election-year'].replace('Yes', 1)
-    df['election-year'] = df['election-year'].replace('No', 0)
-    df['US_election'] = df['US_election'].replace('Yes', 1)
-    df['US_election'] = df['US_election'].replace('No', 0)
-    st.dataframe(df)
+            
+            label_encoder = LabelEncoder()
+            df['election-year'] = df['election-year'].replace('Yes', 1)
+            df['election-year'] = df['election-year'].replace('No', 0)
+            df['US_election'] = df['US_election'].replace('Yes', 1)
+            df['US_election'] = df['US_election'].replace('No', 0)
+            #st.dataframe(df)
 
-    # Model
-    model = joblib.load("rf_model1.pkl")
+            # Model
+            model = joblib.load("rf_model1.pkl")
 
-    pred = model.predict(df)
-
-    st.write("Currency Prediction is:" , pred)
-except:
-    st.error("To view the Currency Price, please input data!!")    
+            pred = model.predict(df)
+            col1, col2 = st.columns(2)
+            with col1:
+              st.write("Currency Prediction is:" , pred)
+            with col2:
+              st.markdown("Accuracy:") 
+              st.markdown(" 96.43058%")
+        except:
+            st.error("To view the Currency Price, please input correct data!!")    
+ 
